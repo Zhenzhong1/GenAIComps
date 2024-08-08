@@ -7,6 +7,9 @@ from typing import List, Optional
 
 from langchain_community.embeddings import OpenAIEmbeddings
 from langsmith import traceable
+import httpx
+import msgspec, requests
+
 
 from comps import (
     EmbedDoc,
@@ -57,8 +60,33 @@ class MosecEmbeddings(OpenAIEmbeddings):
 @register_statistics(names=["opea_service@embedding_mosec"])
 def embedding(input: TextDoc) -> EmbedDoc:
     start = time.time()
-    embed_vector = embeddings.embed_query(input.text)
-    res = EmbedDoc(text=input.text, embedding=embed_vector)
+    print("embed_query...............-------------------------------------")
+    print("input = ", input)
+    print("input.text = ", input.text)
+    
+    req = {
+        "query": [
+            "what a nice day",
+        ],
+    }
+
+    resp = requests.post(
+        "http://10.45.76.150:6001/inference",
+        data=msgspec.msgpack.encode(req)
+    )
+    
+    embed_vector = msgspec.msgpack.decode(resp.content)['embeddings']
+    print(type(embed_vector))
+    print(f"OK: \n {msgspec.msgpack.decode(resp.content)}")
+    # embeded_vector result.
+    
+    res = EmbedDoc(text=req['query'][0], embedding=embed_vector[0])
+    
+    #print("input.text = ", input.text)
+    # embed_vector = embeddings.embed_query(input.text)
+    # print("embed_vector = ", embed_vector)
+    # res = EmbedDoc(text=input.text, embedding=embed_vector)
+    
     statistics_dict["opea_service@embedding_mosec"].append_latency(time.time() - start, None)
     return res
 

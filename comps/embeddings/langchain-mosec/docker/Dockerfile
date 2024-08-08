@@ -13,12 +13,14 @@ RUN useradd -m -s /bin/bash user && \
     mkdir -p /home/user && \
     chown -R user /home/user/
 
-USER user
+USER root
 
 COPY comps /home/user/comps
 
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r /home/user/comps/embeddings/langchain-mosec/requirements.txt
+
+RUN pip3 install llmspec mosec msgspec httpx requests
 
 ENV PYTHONPATH=$PYTHONPATH:/home/user
 
