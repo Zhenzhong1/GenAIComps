@@ -9,8 +9,8 @@ ENV GLIBC_TUNABLES glibc.cpu.x86_shstk=permissive
 COPY comps /root/comps
 COPY neural_speed-0.1.dev97+gfdae9d6.d20240806-cp310-cp310-linux_x86_64.whl /root/
 COPY bert-q8j-g-1-cint8.bin /root/
-#COPY bce-embedding-base_v1 /root/
 COPY requirements-neural-speed.txt /root/
+COPY libstdc++.so.6 /root/
 
 RUN apt update && apt install -y python3 python3-pip 
 # RUN pip3 install torch==2.2.2 torchvision --index-url https://download.pytorch.org/whl/cpu 
@@ -20,10 +20,11 @@ RUN pip3 install -r /root/requirements-neural-speed.txt
 RUN pip3 install llmspec mosec msgspec httpx
 RUN pip3 install /root/neural_speed-0.1.dev97+gfdae9d6.d20240806-cp310-cp310-linux_x86_64.whl
 
-RUN cd /root/ && export HF_ENDPOINT=https://hf-mirror.com && huggingface-cli download --resume-download BAAI/bge-large-zh-v1.5 --local-dir /root/bge-large-zh-v1.5
+RUN cd /root/ && export HF_ENDPOINT=https://hf-mirror.com && huggingface-cli download --resume-download maidalun1020/bce-embedding-base_v1 --local-dir /root/bce-embedding-base_v1
 
 ENV EMB_MODEL="/root/bge-large-zh-v1.5/"
+ENV LD_PRELOAD=/root/libstdc++.so.6
 
-WORKDIR /root/comps/embeddings/langchain-mosec/mosec-docker
+WORKDIR /root/comps/embeddings/langchain-mosec/neural-speed-docker
 
-CMD ["python3", "server-ipex.py"]
+CMD ["python3", "server.py"]
