@@ -47,7 +47,7 @@ def llm_generate(input: LLMParamsDoc):
     llm = OpenAILike(
         api_key="fake",
         api_base=llm_endpoint + "/v1",
-        max_tokens=input.max_tokens,
+        max_tokens=input.max_new_tokens,
         model=model_name,
         top_p=input.top_p,
         temperature=input.temperature,
@@ -57,11 +57,13 @@ def llm_generate(input: LLMParamsDoc):
     if input.streaming:
 
         def stream_generator():
+            chat_response = ""
             for text in llm.stream_complete(input.query):
-                output = text.text
-                yield f"data: {output}\n\n"
+                chat_response += text
+                chunk_repr = repr(text.encode("utf-8"))
+                yield f"data: {chunk_repr}\n\n"
             if logflag:
-                logger.info(f"[llm - chat_stream] stream response: {output}")
+                logger.info(f"[llm - chat_stream] stream response: {chat_response}")
             yield "data: [DONE]\n\n"
 
         return StreamingResponse(stream_generator(), media_type="text/event-stream")

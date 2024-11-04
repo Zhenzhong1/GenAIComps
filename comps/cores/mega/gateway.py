@@ -160,13 +160,11 @@ class ChatQnAGateway(Gateway):
         chat_request = ChatCompletionRequest.parse_obj(data)
         prompt = self._handle_message(chat_request.messages)
         parameters = LLMParams(
-            max_tokens=chat_request.max_tokens if chat_request.max_tokens else 1024,
+            max_new_tokens=chat_request.max_tokens if chat_request.max_tokens else 1024,
             top_k=chat_request.top_k if chat_request.top_k else 10,
             top_p=chat_request.top_p if chat_request.top_p else 0.95,
             temperature=chat_request.temperature if chat_request.temperature else 0.01,
-            frequency_penalty=chat_request.frequency_penalty if chat_request.frequency_penalty else 0.0,
-            presence_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 0.0,
-            repetition_penalty=chat_request.repetition_penalty if chat_request.repetition_penalty else 1.03,
+            repetition_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 1.03,
             streaming=stream_opt,
             chat_template=chat_request.chat_template if chat_request.chat_template else None,
         )
@@ -216,13 +214,11 @@ class CodeGenGateway(Gateway):
         chat_request = ChatCompletionRequest.parse_obj(data)
         prompt = self._handle_message(chat_request.messages)
         parameters = LLMParams(
-            max_tokens=chat_request.max_tokens if chat_request.max_tokens else 1024,
+            max_new_tokens=chat_request.max_tokens if chat_request.max_tokens else 1024,
             top_k=chat_request.top_k if chat_request.top_k else 10,
             top_p=chat_request.top_p if chat_request.top_p else 0.95,
             temperature=chat_request.temperature if chat_request.temperature else 0.01,
-            frequency_penalty=chat_request.frequency_penalty if chat_request.frequency_penalty else 0.0,
-            presence_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 0.0,
-            repetition_penalty=chat_request.repetition_penalty if chat_request.repetition_penalty else 1.03,
+            repetition_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 1.03,
             streaming=stream_opt,
         )
         result_dict, runtime_graph = await self.megaservice.schedule(
@@ -354,13 +350,11 @@ class DocSumGateway(Gateway):
         chat_request = ChatCompletionRequest.parse_obj(data)
         prompt = self._handle_message(chat_request.messages)
         parameters = LLMParams(
-            max_tokens=chat_request.max_tokens if chat_request.max_tokens else 1024,
+            max_new_tokens=chat_request.max_tokens if chat_request.max_tokens else 1024,
             top_k=chat_request.top_k if chat_request.top_k else 10,
             top_p=chat_request.top_p if chat_request.top_p else 0.95,
             temperature=chat_request.temperature if chat_request.temperature else 0.01,
-            frequency_penalty=chat_request.frequency_penalty if chat_request.frequency_penalty else 0.0,
-            presence_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 0.0,
-            repetition_penalty=chat_request.repetition_penalty if chat_request.repetition_penalty else 1.03,
+            repetition_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 1.03,
             streaming=stream_opt,
         )
         result_dict, runtime_graph = await self.megaservice.schedule(
@@ -405,13 +399,11 @@ class AudioQnAGateway(Gateway):
         chat_request = AudioChatCompletionRequest.parse_obj(data)
         parameters = LLMParams(
             # relatively lower max_tokens for audio conversation
-            max_tokens=chat_request.max_tokens if chat_request.max_tokens else 128,
+            max_new_tokens=chat_request.max_tokens if chat_request.max_tokens else 128,
             top_k=chat_request.top_k if chat_request.top_k else 10,
             top_p=chat_request.top_p if chat_request.top_p else 0.95,
             temperature=chat_request.temperature if chat_request.temperature else 0.01,
-            frequency_penalty=chat_request.frequency_penalty if chat_request.frequency_penalty else 0.0,
-            presence_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 0.0,
-            repetition_penalty=chat_request.repetition_penalty if chat_request.repetition_penalty else 1.03,
+            repetition_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 1.03,
             streaming=False,  # TODO add streaming LLM output as input to TTS
         )
         result_dict, runtime_graph = await self.megaservice.schedule(
@@ -436,13 +428,11 @@ class SearchQnAGateway(Gateway):
         chat_request = ChatCompletionRequest.parse_obj(data)
         prompt = self._handle_message(chat_request.messages)
         parameters = LLMParams(
-            max_tokens=chat_request.max_tokens if chat_request.max_tokens else 1024,
+            max_new_tokens=chat_request.max_tokens if chat_request.max_tokens else 1024,
             top_k=chat_request.top_k if chat_request.top_k else 10,
             top_p=chat_request.top_p if chat_request.top_p else 0.95,
             temperature=chat_request.temperature if chat_request.temperature else 0.01,
-            frequency_penalty=chat_request.frequency_penalty if chat_request.frequency_penalty else 0.0,
-            presence_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 0.0,
-            repetition_penalty=chat_request.repetition_penalty if chat_request.repetition_penalty else 1.03,
+            repetition_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 1.03,
             streaming=stream_opt,
         )
         result_dict, runtime_graph = await self.megaservice.schedule(
@@ -482,13 +472,11 @@ class FaqGenGateway(Gateway):
         chat_request = ChatCompletionRequest.parse_obj(data)
         prompt = self._handle_message(chat_request.messages)
         parameters = LLMParams(
-            max_tokens=chat_request.max_tokens if chat_request.max_tokens else 1024,
+            max_new_tokens=chat_request.max_tokens if chat_request.max_tokens else 1024,
             top_k=chat_request.top_k if chat_request.top_k else 10,
             top_p=chat_request.top_p if chat_request.top_p else 0.95,
             temperature=chat_request.temperature if chat_request.temperature else 0.01,
-            frequency_penalty=chat_request.frequency_penalty if chat_request.frequency_penalty else 0.0,
-            presence_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 0.0,
-            repetition_penalty=chat_request.repetition_penalty if chat_request.repetition_penalty else 1.03,
+            repetition_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 1.03,
             streaming=stream_opt,
         )
         result_dict, runtime_graph = await self.megaservice.schedule(
@@ -532,9 +520,7 @@ class VisualQnAGateway(Gateway):
             top_k=chat_request.top_k if chat_request.top_k else 10,
             top_p=chat_request.top_p if chat_request.top_p else 0.95,
             temperature=chat_request.temperature if chat_request.temperature else 0.01,
-            frequency_penalty=chat_request.frequency_penalty if chat_request.frequency_penalty else 0.0,
-            presence_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 0.0,
-            repetition_penalty=chat_request.repetition_penalty if chat_request.repetition_penalty else 1.03,
+            repetition_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 1.03,
             streaming=stream_opt,
         )
         result_dict, runtime_graph = await self.megaservice.schedule(
@@ -562,7 +548,7 @@ class VisualQnAGateway(Gateway):
         return ChatCompletionResponse(model="visualqna", choices=choices, usage=usage)
 
 
-class VideoQnAGateway(Gateway):
+class VideoRAGQnAGateway(Gateway):
     def __init__(self, megaservice, host="0.0.0.0", port=8888):
         super().__init__(
             megaservice,
@@ -583,9 +569,7 @@ class VideoQnAGateway(Gateway):
             top_k=chat_request.top_k if chat_request.top_k else 10,
             top_p=chat_request.top_p if chat_request.top_p else 0.95,
             temperature=chat_request.temperature if chat_request.temperature else 0.01,
-            frequency_penalty=chat_request.frequency_penalty if chat_request.frequency_penalty else 0.0,
-            presence_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 0.0,
-            repetition_penalty=chat_request.repetition_penalty if chat_request.repetition_penalty else 1.03,
+            repetition_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 1.03,
             streaming=stream_opt,
         )
         result_dict, runtime_graph = await self.megaservice.schedule(
@@ -610,7 +594,7 @@ class VideoQnAGateway(Gateway):
                 finish_reason="stop",
             )
         )
-        return ChatCompletionResponse(model="videoqna", choices=choices, usage=usage)
+        return ChatCompletionResponse(model="videoragqna", choices=choices, usage=usage)
 
 
 class RetrievalToolGateway(Gateway):
@@ -650,14 +634,14 @@ class RetrievalToolGateway(Gateway):
         return response
 
 
-class MultimodalQnAGateway(Gateway):
+class MultimodalRAGWithVideosGateway(Gateway):
     def __init__(self, multimodal_rag_megaservice, lvm_megaservice, host="0.0.0.0", port=9999):
         self.lvm_megaservice = lvm_megaservice
         super().__init__(
             multimodal_rag_megaservice,
             host,
             port,
-            str(MegaServiceEndpoint.MULTIMODAL_QNA),
+            str(MegaServiceEndpoint.MULTIMODAL_RAG_WITH_VIDEOS),
             ChatCompletionRequest,
             ChatCompletionResponse,
         )
@@ -753,7 +737,7 @@ class MultimodalQnAGateway(Gateway):
         data = await request.json()
         stream_opt = bool(data.get("stream", False))
         if stream_opt:
-            print("[ MultimodalQnAGateway ] stream=True not used, this has not support streaming yet!")
+            print("[ MultimodalRAGWithVideosGateway ] stream=True not used, this has not support streaming yet!")
             stream_opt = False
         chat_request = ChatCompletionRequest.model_validate(data)
         # Multimodal RAG QnA With Videos has not yet accepts image as input during QnA.
@@ -774,9 +758,7 @@ class MultimodalQnAGateway(Gateway):
             top_k=chat_request.top_k if chat_request.top_k else 10,
             top_p=chat_request.top_p if chat_request.top_p else 0.95,
             temperature=chat_request.temperature if chat_request.temperature else 0.01,
-            frequency_penalty=chat_request.frequency_penalty if chat_request.frequency_penalty else 0.0,
-            presence_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 0.0,
-            repetition_penalty=chat_request.repetition_penalty if chat_request.repetition_penalty else 1.03,
+            repetition_penalty=chat_request.presence_penalty if chat_request.presence_penalty else 1.03,
             streaming=stream_opt,
             chat_template=chat_request.chat_template if chat_request.chat_template else None,
         )
@@ -821,4 +803,4 @@ class MultimodalQnAGateway(Gateway):
                 metadata=metadata,
             )
         )
-        return ChatCompletionResponse(model="multimodalqna", choices=choices, usage=usage)
+        return ChatCompletionResponse(model="multimodalragwithvideos", choices=choices, usage=usage)

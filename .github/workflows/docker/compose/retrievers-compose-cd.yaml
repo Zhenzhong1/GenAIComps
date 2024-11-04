@@ -23,7 +23,11 @@ services:
     build:
       dockerfile: comps/retrievers/pathway/langchain/Dockerfile
     image: ${REGISTRY:-opea}/retriever-pathway:${TAG:-latest}
-  retriever-neo4j:
+  multimodal-retriever-redis:
     build:
-      dockerfile: comps/retrievers/neo4j/langchain/Dockerfile
-    image: ${REGISTRY:-opea}/retriever-neo4j:${TAG:-latest}
+      dockerfile: comps/retrievers/multimodal/redis/langchain/Dockerfile
+    image: ${REGISTRY:-opea}/multimodal-retriever-redis:${TAG:-latest}
+  retriever-vdms:
+    build:
+      dockerfile: comps/retrievers/vdms/langchain/Dockerfile
+    image: ${REGISTRY:-opea}/retriever-vdms:${TAG:-latest}

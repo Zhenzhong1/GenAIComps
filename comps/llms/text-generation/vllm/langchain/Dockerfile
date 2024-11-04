@@ -1,7 +1,7 @@
 # Copyright (C) 2024 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
-FROM python:3.11-slim
+FROM langchain/langchain:latest
 
 ARG ARCH="cpu"  # Set this to "cpu" or "gpu"
 

@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 
 services:
-  embedding-multimodal-bridgetower:
-    image: opea/embedding-multimodal-bridgetower:latest
-    container_name: embedding-multimodal-bridgetower
+  bridgetower:
+    image: opea/bridgetower-embedder:latest
+    container_name: bridgetower-embedding-server
     ports:
       - ${EMBEDDER_PORT}:${EMBEDDER_PORT}
     ipc: host
